@@ -4,7 +4,6 @@ import com.steven.testdi.MainActivity;
 import com.steven.testdi.di.module.ApplicationModule;
 import com.steven.testdi.di.module.NetModule;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
