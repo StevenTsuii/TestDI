@@ -1,5 +1,7 @@
 package com.steven.testdi.di.module;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.steven.testdi.di.annotation.ActivityScope;
@@ -35,5 +37,13 @@ public class ActivityModule {
         return dialogHelper;
     }
 
-
+//    @Provides
+//    @ActivityScope
+//    FragmentManager provideFragmentManager(AppCompatActivity activity){
+//        return activity.getFragmentManager();
+//    }
+//
+//    if (findViewById(fragmentContainerId) != null && fragment != null) {
+//        getFragmentManager().beginTransaction().replace(fragmentContainerId, fragment, tag).setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+//    }
 }
