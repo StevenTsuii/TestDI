@@ -1,10 +1,8 @@
 package com.steven.testdi.di.module;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-import com.steven.testdi.di.annotation.ActivityScope;
+import com.steven.testdi.di.scope.ActivityScope;
 import com.steven.testdi.helper.DialogHelper;
 
 import dagger.Module;
@@ -27,6 +25,7 @@ public class ActivityModule {
     @Provides
     @ActivityScope
     AppCompatActivity provideActivity(){
+
         return mActivity;
     }
 
@@ -36,6 +35,9 @@ public class ActivityModule {
         DialogHelper dialogHelper = new DialogHelper(activity);
         return dialogHelper;
     }
+
+
+
 
 //    @Provides
 //    @ActivityScope
