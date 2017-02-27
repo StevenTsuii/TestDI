@@ -1,6 +1,7 @@
 package com.steven.testdi.di.component.subcomponent;
 
 import com.steven.testdi.ThirdActivity;
+import com.steven.testdi.di.module.AdapterModule;
 import com.steven.testdi.di.module.UserModule;
 import com.steven.testdi.di.scope.SessionScope;
 
@@ -11,7 +12,7 @@ import dagger.Subcomponent;
  */
 
 @SessionScope
-@Subcomponent(modules = UserModule.class)
+@Subcomponent(modules = {UserModule.class})
 public interface ThirdSubcomponent {
     void inject(ThirdActivity thirdActivity);
 }

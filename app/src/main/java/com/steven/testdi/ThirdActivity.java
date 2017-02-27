@@ -1,14 +1,11 @@
 package com.steven.testdi;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.google.gson.Gson;
-import com.steven.testdi.di.component.DaggerNetComponent;
-import com.steven.testdi.di.component.NetComponent;
-import com.steven.testdi.di.component.subcomponent.ThirdSubcomponent;
-import com.steven.testdi.di.module.NetModule;
 import com.steven.testdi.di.module.UserModule;
 
 import javax.inject.Inject;
@@ -35,7 +32,9 @@ public class ThirdActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_third);
+
+        getFragmentManager().beginTransaction().replace(R.id.fragment_container, new TestFragment()).setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
 
         ((StevenApplication) getApplication()).getNetComponent().plus(new UserModule()).inject(this);
 

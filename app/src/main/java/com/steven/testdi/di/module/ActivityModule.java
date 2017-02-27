@@ -1,5 +1,6 @@
 package com.steven.testdi.di.module;
 
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 
 import com.steven.testdi.di.scope.ActivityScope;
@@ -24,7 +25,7 @@ public class ActivityModule {
 
     @Provides
     @ActivityScope
-    AppCompatActivity provideActivity(){
+    AppCompatActivity provideActivity() {
 
         return mActivity;
     }
