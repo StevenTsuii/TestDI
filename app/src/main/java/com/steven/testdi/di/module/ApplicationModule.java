@@ -1,6 +1,8 @@
 package com.steven.testdi.di.module;
 
 import android.app.Application;
+import android.os.Handler;
+import android.os.Looper;
 
 import javax.inject.Singleton;
 
@@ -24,5 +26,11 @@ public class ApplicationModule {
     @Singleton
     Application provideApplication() {
         return mApplication;
+    }
+
+    @Provides
+    @Singleton
+    Handler provideMainHandler() {
+        return new Handler(Looper.getMainLooper());
     }
 }

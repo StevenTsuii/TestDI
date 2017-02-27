@@ -1,9 +1,7 @@
 package com.steven.testdi.di.component.depend;
 
-import android.support.v7.app.AppCompatActivity;
-
 import com.steven.testdi.SecondActivity;
-import com.steven.testdi.di.annotation.ActivityScope;
+import com.steven.testdi.di.scope.ActivityScope;
 import com.steven.testdi.di.component.NetComponent;
 import com.steven.testdi.di.module.ActivityModule;
 

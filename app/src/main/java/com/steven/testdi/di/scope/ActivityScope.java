@@ -1,4 +1,4 @@
-package com.steven.testdi.di.annotation;
+package com.steven.testdi.di.scope;
 
 import javax.inject.Scope;
 
