@@ -8,6 +8,8 @@ import com.steven.testdi.di.module.ApplicationModule;
 import com.steven.testdi.di.module.NetModule;
 import com.steven.testdi.di.module.UserModule;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
 
@@ -33,4 +35,6 @@ public interface NetComponent {
 
     @Named("domainUrl")
     String domainUrl();
+
+    EventBus eventBus();
 }

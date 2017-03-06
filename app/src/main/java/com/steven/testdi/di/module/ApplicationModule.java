@@ -4,6 +4,8 @@ import android.app.Application;
 import android.os.Handler;
 import android.os.Looper;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -32,5 +34,12 @@ public class ApplicationModule {
     @Singleton
     Handler provideMainHandler() {
         return new Handler(Looper.getMainLooper());
+    }
+
+
+    @Provides
+    @Singleton
+    EventBus provideEventBus() {
+        return EventBus.getDefault();
     }
 }
