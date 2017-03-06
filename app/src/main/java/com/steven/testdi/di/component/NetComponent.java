@@ -21,7 +21,7 @@ import retrofit.Retrofit;
 @Component(modules = {ApplicationModule.class, NetModule.class})
 public interface NetComponent {
 
-    void inject(MainActivity activity);
+    //void inject(MainActivity activity);
 
     //Subcomponent
     ThirdSubcomponent plus(UserModule userModule);

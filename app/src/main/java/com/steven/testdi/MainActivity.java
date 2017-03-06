@@ -11,6 +11,16 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.steven.testdi.di.component.depend.ActivityComponent;
+import com.steven.testdi.di.component.depend.DaggerActivityComponent;
+import com.steven.testdi.di.module.ActivityModule;
+import com.steven.testdi.event.PopUpDialogEvent;
+import com.steven.testdi.helper.DialogHelper;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -25,6 +35,24 @@ public class MainActivity extends AppCompatActivity {
     @Named("domainUrl")
     String mDomainUrl;
 
+    @Inject
+    DialogHelper mDialogHelper;
+
+    ActivityComponent mActivityComponent;
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,13 +66,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                startActivity(intent);
+                EventBus.getDefault().post(new PopUpDialogEvent());
             }
         });
 
-        ((StevenApplication) getApplication()).getNetComponent().inject(this);
-
+        //((StevenApplication) getApplication()).getNetComponent().inject(this);
+        mActivityComponent = DaggerActivityComponent.builder().netComponent(((StevenApplication) getApplication()).getNetComponent()).activityModule(new ActivityModule(this)).build();
+        mActivityComponent.inject(this);
         setTitle(mDomainUrl);
     }
 
@@ -68,5 +96,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onPopUpDialogEvent(PopUpDialogEvent event) {
+        Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+        startActivity(intent);
     }
 }

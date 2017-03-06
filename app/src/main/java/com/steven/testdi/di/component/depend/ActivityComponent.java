@@ -1,5 +1,6 @@
 package com.steven.testdi.di.component.depend;
 
+import com.steven.testdi.MainActivity;
 import com.steven.testdi.SecondActivity;
 import com.steven.testdi.di.component.subcomponent.FragmentComponent;
 import com.steven.testdi.di.module.AdapterModule;
@@ -18,6 +19,7 @@ import dagger.Component;
 @Component(dependencies = NetComponent.class, modules = ActivityModule.class)
 public interface ActivityComponent {
 
+    void inject(MainActivity mainActivity);
     void inject(SecondActivity secondActivity);
 
     FragmentComponent plus(AdapterModule adapterModule);
