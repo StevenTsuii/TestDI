@@ -1,22 +1,14 @@
 apply plugin: 'com.android.application'
 
-android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.1"
-    defaultConfig {
-        applicationId "com.steven.testdi"
-        minSdkVersion 14
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+
+ext {
+    retrofitVersion = "2.0.0-beta2"
+    daggerVersion = "2.8"
+    leakCanaryVersion = "1.5"
+    sdkVersion = 25
+    rxVersion = "2.+"
+    butterkniftVersion = "8.5.1"
+
 }
 
 dependencies {
@@ -24,17 +16,77 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    //Default
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:design:25.1.0'
     testCompile 'junit:junit:4.12'
 
     //Dagger
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.8'
-    compile 'com.google.dagger:dagger:2.8'
+    annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
+    compile "com.google.dagger:dagger:${daggerVersion}"
     provided 'javax.annotation:jsr250-api:1.0'
 
+    //Network
     compile 'com.google.code.gson:gson:2.4'
-    compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
-    compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
-    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile "com.squareup.retrofit:retrofit:${retrofitVersion}"
+    compile "com.squareup.retrofit:converter-gson:${retrofitVersion}"
+    compile "com.squareup.okhttp:okhttp:2.4.0"
+
+    //Eventbus
+    compile 'org.greenrobot:eventbus:3.0.0'
+
+    //Rxjava
+    compile "io.reactivex.rxjava2:rxjava:${rxVersion}"
+    compile "io.reactivex.rxjava2:rxandroid:${rxVersion}"
+
+    //Butterknife
+    compile "com.jakewharton:butterknife:${butterkniftVersion}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${butterkniftVersion}"
+
+    //ConstrainLayout
+    compile 'com.android.support.constraint:constraint-layout:1.0.1'
+
+    debugCompile "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}"
+}
+
+android {
+    compileSdkVersion sdkVersion
+    buildToolsVersion "25.0.1"
+    defaultConfig {
+        applicationId "com.steven.testdi"
+        minSdkVersion 14
+        targetSdkVersion sdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug{
+            applicationIdSuffix ".debug"
+        }
+    }
+
+    productFlavors {
+        free {
+            //applicationId "com.steven.testdi.free"
+            applicationIdSuffix ".free"
+            resValue "string", "app_name", "TestDI - Free"
+            versionName "1.0-free"
+            buildConfigField "boolean", "PAID_VERSION", "false"
+        }
+        paid {
+            //applicationId "com.steven.testdi.paid"
+            applicationIdSuffix ".paid"
+            resValue "string", "app_name", "TestDI - PAID"
+            versionName "1.0-paid"
+            buildConfigField "boolean", "PAID_VERSION", "true"
+        }
+    }
 }
