@@ -1,5 +1,6 @@
 package com.steven.testdi;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,9 +10,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.steven.testdi.di.component.depend.ActivityComponent;
 import com.steven.testdi.event.PopUpDialogEvent;
+import com.steven.testdi.fragment.MainFragment;
+import com.steven.testdi.fragment.TestFragment;
 import com.steven.testdi.helper.DialogHelper;
 import com.steven.testdi.helper.RxHelper;
 
@@ -22,6 +26,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import butterknife.BindView;
 import retrofit.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     @Inject
     RxHelper mRxHelper;
 
+    @BindView(R.id.container_frame_layout)
+    FrameLayout mFragmentLayout;
+
     ActivityComponent mActivityComponent;
 
 
@@ -61,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -78,11 +87,14 @@ public class MainActivity extends AppCompatActivity {
         ((StevenApplication) getApplication()).getActivityComponent(this).inject(this);
         setTitle(BuildConfig.APPLICATION_ID);
 
-
-        //mRxHelper.standardDemo();
-        //mRxHelper.standardWithJustDemo();
         mRxHelper.disposable();
 
+        String fragmentTag = "main";
+        MainFragment mainFragment = (MainFragment) getFragmentManager().findFragmentByTag(fragmentTag);
+        if (mainFragment == null) {
+            mainFragment = new MainFragment();
+        }
+        getFragmentManager().beginTransaction().replace(R.id.container_frame_layout, mainFragment, fragmentTag).setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
 
 
     }

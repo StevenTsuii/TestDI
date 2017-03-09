@@ -2,6 +2,7 @@ package com.steven.testdi;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import com.squareup.leakcanary.LeakCanary;
@@ -9,7 +10,9 @@ import com.steven.testdi.di.component.DaggerNetComponent;
 import com.steven.testdi.di.component.NetComponent;
 import com.steven.testdi.di.component.depend.ActivityComponent;
 import com.steven.testdi.di.component.depend.DaggerActivityComponent;
+import com.steven.testdi.di.component.subcomponent.FragmentComponent;
 import com.steven.testdi.di.module.ActivityModule;
+import com.steven.testdi.di.module.AdapterModule;
 import com.steven.testdi.di.module.ApplicationModule;
 import com.steven.testdi.di.module.NetModule;
 
@@ -41,5 +44,9 @@ public class StevenApplication extends Application {
 
     public ActivityComponent getActivityComponent(AppCompatActivity activity) {
         return DaggerActivityComponent.builder().netComponent(getNetComponent()).activityModule(new ActivityModule(activity)).build();
+    }
+
+    public FragmentComponent getFragmentComponent(AppCompatActivity activity) {
+        return getActivityComponent(activity).plus(new AdapterModule());
     }
 }

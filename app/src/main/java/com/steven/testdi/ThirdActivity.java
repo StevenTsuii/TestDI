@@ -4,9 +4,11 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.google.gson.Gson;
 import com.steven.testdi.di.module.UserModule;
+import com.steven.testdi.fragment.TestFragment;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -33,6 +35,10 @@ public class ThirdActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_third);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.steven_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setSubtitle("subtitle");
 
         getFragmentManager().beginTransaction().replace(R.id.fragment_container, new TestFragment()).setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
 

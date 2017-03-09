@@ -40,7 +40,7 @@ public class SecondActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_second);
 
         mActivityComponent = DaggerActivityComponent.builder().netComponent(((StevenApplication) getApplication()).getNetComponent()).activityModule(new ActivityModule(this)).build();
         mActivityComponent.inject(this);

@@ -1,4 +1,4 @@
-package com.steven.testdi;
+package com.steven.testdi.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -10,6 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.steven.testdi.AbstractAdapter;
+import com.steven.testdi.R;
+import com.steven.testdi.StevenApplication;
+import com.steven.testdi.ThirdActivity;
 import com.steven.testdi.di.component.depend.DaggerActivityComponent;
 import com.steven.testdi.di.module.ActivityModule;
 import com.steven.testdi.di.module.AdapterModule;
