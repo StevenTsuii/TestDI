@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.steven.testdi.di.scope.ActivityScope;
 import com.steven.testdi.helper.DialogHelper;
+import com.steven.testdi.helper.RxHelper;
 
 import dagger.Module;
 import dagger.Provides;
@@ -37,7 +38,12 @@ public class ActivityModule {
         return dialogHelper;
     }
 
-
+    @Provides
+    @ActivityScope
+    RxHelper provideRxHelper() {
+        RxHelper rxHelper = new RxHelper();
+        return rxHelper;
+    }
 
 
 //    @Provides
