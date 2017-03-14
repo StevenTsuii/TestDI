@@ -71,6 +71,10 @@ android {
         debug{
             applicationIdSuffix ".debug"
         }
+
+
+        dataBinding.enabled = true
+
     }
 
     productFlavors {
