@@ -6,9 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-/**
- * Created by yaucheukming on 14/1/2017.
- */
 
 public class BaseDatabindingComponent{
 
